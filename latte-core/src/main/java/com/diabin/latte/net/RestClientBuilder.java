@@ -22,15 +22,18 @@ import okhttp3.RequestBody;
 public class RestClientBuilder {
     private  String mUrl = null;
 //    private  Map<String,Object> mParams;
-    private static final Map<String,Object> PARAMS =RestCreator.getParams();
-    private  IRequest mIRequst = null;
-    private  ISuccess mISuccess = null;
-    private  IFailure mIFailure = null;
-    private  IError mIError = null;
+    private static final Map<String,Object> PARAMS = RestCreator.getParams();
+    private IRequest mIRequst = null;
+    private ISuccess mISuccess = null;
+    private IFailure mIFailure = null;
+    private IError mIError = null;
     private  RequestBody mBody = null;
     private Context mContext = null;
     private LoaderStyle mLoaderStyle = null;
     private File mfile = null;
+    private  String DOWNLOAD_DIR = null;
+    private  String EXTENSION = null;
+    private  String NAME = null;
     RestClientBuilder(){
     }
 
@@ -43,7 +46,7 @@ public class RestClientBuilder {
         PARAMS.putAll(params);
         return this;
     }
-    public final RestClientBuilder params(String key,Object value){
+    public final RestClientBuilder params(String key, Object value){
         PARAMS.put(key,value);
         return this;
     }
@@ -78,10 +81,27 @@ public class RestClientBuilder {
         return this;
     }
 
+    public final RestClientBuilder download_dir(String DOWNLOAD_DIR){
+        this.DOWNLOAD_DIR = DOWNLOAD_DIR;
+        return this;
+    }
+
+
+    public final RestClientBuilder extension(String EXTENSION){
+        this.EXTENSION = EXTENSION;
+        return this;
+    }
+
+    public final RestClientBuilder name(String NAME){
+        this.NAME= NAME;
+        return this;
+    }
+
     public final RestClientBuilder error(IError iError){
         this.mIError=iError;
         return this;
     }
+
 
     public final RestClientBuilder loader(Context context, LoaderStyle style){
         this.mContext = context;
@@ -103,7 +123,7 @@ public class RestClientBuilder {
 //    }
 
     public final RestClient build(){
-        return  new RestClient(mUrl,PARAMS,mIRequst,mISuccess,mIFailure,mIError,mBody,mfile,mContext,mLoaderStyle);
+        return  new RestClient(mUrl,PARAMS,mIRequst,DOWNLOAD_DIR,EXTENSION,NAME,mISuccess,mIFailure,mIError,mBody,mfile,mContext,mLoaderStyle);
     }
 
 

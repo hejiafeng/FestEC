@@ -1,6 +1,5 @@
 package com.diabin.latte.net;
 
-import android.app.Application;
 import android.content.Context;
 
 import com.diabin.latte.net.callback.IError;
@@ -8,8 +7,8 @@ import com.diabin.latte.net.callback.IFailure;
 import com.diabin.latte.net.callback.IRequest;
 import com.diabin.latte.net.callback.ISuccess;
 import com.diabin.latte.net.callback.RequestCallbacks;
+import com.diabin.latte.net.download.DownloadHandler;
 import com.diabin.latte.ui.LatteLoader;
-import com.diabin.latte.ui.LoaderCreator;
 import com.diabin.latte.ui.LoaderStyle;
 
 import java.io.File;
@@ -21,7 +20,6 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.http.Multipart;
 
 /**
  * Created by Administrator on 2018/2/17.
@@ -31,8 +29,11 @@ import retrofit2.http.Multipart;
 public class RestClient {
     private final String URL;
 //    private final Map<String,Object> PARAMS;
-    private static final WeakHashMap<String,Object> PARAMS =RestCreator.getParams();
+    private static final WeakHashMap<String,Object> PARAMS = RestCreator.getParams();
     private final IRequest REQUEST;
+    private final String DOWNLOAD_DIR;
+    private final String EXTENSION;
+    private final String NAME;
     private final ISuccess SUCCESS;
     private final IFailure FAILURE;
     private final IError ERROR;
@@ -44,6 +45,9 @@ public class RestClient {
     public RestClient(String url,
                       Map<String, Object> params,
                       IRequest request,
+                      String download_dir,
+                      String extension,
+                      String name,
                       ISuccess success,
                       IFailure failure,
                       IError error,
@@ -62,6 +66,9 @@ public class RestClient {
         this.FILE = file;
         this.CONTEXT = context;
         this.LOADER_STYLE = loaderStyle;
+        this.DOWNLOAD_DIR = download_dir;
+        this.EXTENSION = extension;
+        this.NAME = name;
     }
     public static RestClientBuilder builder(){
         return new RestClientBuilder();
@@ -151,6 +158,16 @@ public class RestClient {
 
     public final void delete(){
         request(HttpMethod.DELETE);
+    }
+
+    public final void upload(){
+        request(HttpMethod.UPLOAD);
+    }
+
+    public final void download(){
+//        request(HttpMethod);
+        new DownloadHandler(URL,REQUEST,DOWNLOAD_DIR,EXTENSION,NAME,SUCCESS,FAILURE,ERROR).handlerDownload();
+
     }
 
 
