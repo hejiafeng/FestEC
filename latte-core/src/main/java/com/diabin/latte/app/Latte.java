@@ -29,6 +29,9 @@ public final class Latte {
         return (Application) getConfigurations().get(ConfigType.APPLICATION_CONTEXT.name());
 
     }
+    public static Application getApplicationContext(){
+        return (Application) getConfigurations().get(ConfigType.APPLICATION_CONTEXT.name());
+    }
 
 //    public static Context getApplicationContext() {
 //        return getConfiguration(ConfigKeys.APPLICATION_CONTEXT);
