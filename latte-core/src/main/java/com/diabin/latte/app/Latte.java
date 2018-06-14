@@ -21,7 +21,7 @@ public final class Latte {
         return Configurator.getInstance();
 
     }
-    public static WeakHashMap<String,Object> getConfigurations(){
+    public static WeakHashMap<Object,Object> getConfigurations(){
         return Configurator.getInstance().getLatteConfigs();
     }
 

@@ -1,6 +1,9 @@
 package com.diabin.latte.app;
 
+import java.util.ArrayList;
 import java.util.WeakHashMap;
+
+import okhttp3.Interceptor;
 
 /**
 * 项目名： FestEC
@@ -24,7 +27,9 @@ import java.util.WeakHashMap;
 */
 
 public class Configurator {
-    private static final WeakHashMap<String, Object> LATTE_CONFIGS = new WeakHashMap<>();
+    private static final WeakHashMap<Object, Object> LATTE_CONFIGS = new WeakHashMap<>();
+//    private static final ArrayList<IconF>
+    private static final ArrayList<Interceptor> INTERCEPTORS = new ArrayList<>();
 
     //初始化，但是为false
     private Configurator() {
@@ -50,7 +55,7 @@ public class Configurator {
      * 还有不用public 为毛只用了？
      * @return
      */
-    final  WeakHashMap<String,Object> getLatteConfigs(){
+    final  WeakHashMap<Object,Object> getLatteConfigs(){
         return LATTE_CONFIGS;
     }
     public final void configure(){
@@ -84,5 +89,16 @@ public class Configurator {
         return (T) LATTE_CONFIGS.get(key.name());
     }
 
+    public final Configurator withInterceptor(Interceptor interceptor){
+        INTERCEPTORS.add(interceptor);
+        LATTE_CONFIGS.put(ConfigKeys.INTERCEPTOR,INTERCEPTORS);
+        return this;
+    }
+
+    public final Configurator withInterceptor(ArrayList<Interceptor> interceptors){
+        INTERCEPTORS.addAll(interceptors);
+        LATTE_CONFIGS.put(ConfigKeys.INTERCEPTOR,INTERCEPTORS);
+        return this;
+    }
 
 }
