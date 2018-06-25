@@ -12,6 +12,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.diabin.latte.app.Latte;
+import com.diabin.latte.net.interceptors.DebugInterceptor;
 
 public class ExampleApp extends Application {
 
@@ -29,6 +30,7 @@ public class ExampleApp extends Application {
 
         Latte.init(this)
                 .withApiHost("http://127.0.0.1/")
+                .withInterceptor(new DebugInterceptor("index",R.raw.test))
                 .configure();
 
     }
