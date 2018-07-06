@@ -1,7 +1,14 @@
 package com.diabin.festec.example;
 
+import android.app.ActionBar;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+
 import com.diabin.latte.activities.ProxyActivity;
 import com.diabin.latte.delegates.LatteDelegate;
+import com.diabin.lattteec.launcher.LancherDelegate;
+import com.diabin.lattteec.launcher.LauncherScrollDelegate;
+import com.diabin.lattteec.sign.SignUpDelegate;
 
 /**
  * Created by Administrator on 2018/2/16.
@@ -11,9 +18,22 @@ import com.diabin.latte.delegates.LatteDelegate;
  */
 
 public class ExampleActivity extends ProxyActivity {
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        final ActionBar actionBar = getActionBar();
+        if (actionBar != null){
+            actionBar.hide();
+        }
+    }
+
     @Override
     public LatteDelegate setRootDelegate() {
-        return new ExampleDelegate();
+//        return new ExampleDelegate();
+//        return new LancherDelegate();
+//        return new LauncherScrollDelegate();
+        return new SignUpDelegate();
 
     }
 

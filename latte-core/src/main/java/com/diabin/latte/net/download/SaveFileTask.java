@@ -8,12 +8,11 @@ import android.os.AsyncTask;
 import com.diabin.latte.app.Latte;
 import com.diabin.latte.net.callback.IRequest;
 import com.diabin.latte.net.callback.ISuccess;
-import com.diabin.latte.util.FileUtil;
+import com.diabin.latte.util.file.FileUtil;
 
 import java.io.File;
 import java.io.InputStream;
 
-import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 
 public class SaveFileTask extends AsyncTask<Object,Void,File>{

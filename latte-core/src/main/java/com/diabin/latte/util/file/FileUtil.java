@@ -1,4 +1,4 @@
-package com.diabin.latte.util;
+package com.diabin.latte.util.file;
 
 import android.content.ContentResolver;
 import android.content.Context;

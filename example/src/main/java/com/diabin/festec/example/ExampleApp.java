@@ -13,6 +13,8 @@ import android.content.Context;
 
 import com.diabin.latte.app.Latte;
 import com.diabin.latte.net.interceptors.DebugInterceptor;
+import com.diabin.lattteec.icon.FontEcModule;
+import com.joanzapata.iconify.fonts.FontAwesomeModule;
 
 public class ExampleApp extends Application {
 
@@ -29,6 +31,8 @@ public class ExampleApp extends Application {
 
 
         Latte.init(this)
+                .withIcon(new FontAwesomeModule())
+                .withIcon(new FontEcModule())
                 .withApiHost("http://127.0.0.1/")
                 .withInterceptor(new DebugInterceptor("index",R.raw.test))
                 .configure();

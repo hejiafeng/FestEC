@@ -1,13 +1,11 @@
 package com.diabin.latte.net.interceptors;
 
-import android.icu.util.ChineseCalendar;
 import android.support.annotation.RawRes;
 
-import com.diabin.latte.util.FileUtil;
+import com.diabin.latte.util.file.FileUtil;
 
 import java.io.IOException;
 
-import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.Protocol;
 import okhttp3.Response;
