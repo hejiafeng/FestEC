@@ -22,7 +22,7 @@ public class DatabaseManager {
         private static final DatabaseManager INSTANCE = new DatabaseManager();
     }
 
-    private static DatabaseManager getInstance(){
+    public static DatabaseManager getInstance(){
         return  Holder.INSTANCE;
     }
 

@@ -13,7 +13,9 @@ import android.content.Context;
 
 import com.diabin.latte.app.Latte;
 import com.diabin.latte.net.interceptors.DebugInterceptor;
+import com.diabin.lattteec.database.DatabaseManager;
 import com.diabin.lattteec.icon.FontEcModule;
+import com.facebook.stetho.Stetho;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 
 public class ExampleApp extends Application {
@@ -36,11 +38,23 @@ public class ExampleApp extends Application {
                 .withApiHost("http://127.0.0.1/")
                 .withInterceptor(new DebugInterceptor("index",R.raw.test))
                 .configure();
+        initStetho();
+        DatabaseManager.getInstance().init(this);
+//        Stetho.initializeWithDefaults(this);
 
     }
 
     public static Context getContext() {
         return context;
+    }
+    private void initStetho(){
+//        Steth
+        Stetho.initialize(
+                Stetho.newInitializerBuilder(this)
+                .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
+                .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
+                .build()
+        );
     }
 
 
