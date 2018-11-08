@@ -1,12 +1,17 @@
 package com.diabin.lattteec.launcher;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.View;
 
+import com.diabin.latte.app.AccountManager;
+import com.diabin.latte.app.IUserChecker;
 import com.diabin.latte.delegates.LatteDelegate;
+import com.diabin.latte.ui.launcher.ILauncherListener;
+import com.diabin.latte.ui.launcher.OnLauncherFinishTag;
 import com.diabin.latte.ui.launcher.ScrollLauncherTag;
 import com.diabin.latte.util.storage.LattePreference;
 import com.diabin.latte.util.timer.BaseTimerTask;
@@ -28,6 +33,15 @@ public class LancherDelegate extends LatteDelegate implements ITimerListener{
     private Timer mTimer = null;
 
     private int mCount = 5;
+    private ILauncherListener mILauncherListener = null;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof ILauncherListener){
+            mILauncherListener = (ILauncherListener) activity;
+        }
+    }
 
     @OnClick(R2.id.tv_lanucher_timer)
     void onClickTimerView(){
@@ -59,6 +73,23 @@ public class LancherDelegate extends LatteDelegate implements ITimerListener{
             start(new LauncherScrollDelegate(),SINGLETASK);
         }else {
             //检查用户是否登录了App
+            AccountManager.checkAccount(new IUserChecker() {
+                @Override
+                public void onSignIn() {
+                    if (mILauncherListener!=null){
+                        mILauncherListener.onLauncherFinish(OnLauncherFinishTag.SIGNED);
+                    }
+
+                }
+
+                @Override
+                public void onNotSignIn() {
+                    if (mILauncherListener!=null){
+                        mILauncherListener.onLauncherFinish(OnLauncherFinishTag.NOT_SINGED);
+                    }
+
+                }
+            });
 
         }
     }

@@ -55,7 +55,8 @@ public class RestCreator {
                 .baseUrl(BASE_URL)
                 .client(OkHttpHolder.OK_HTTP_CLIENT)
                 .addConverterFactory(ScalarsConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//rxjava 加载进去
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                //rxjava 加载进去
                 .build();
     }
     private static final class OkHttpHolder{

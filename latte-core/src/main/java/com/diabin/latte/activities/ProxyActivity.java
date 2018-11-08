@@ -15,6 +15,7 @@ import me.yokeyword.fragmentation.SupportActivity;
  */
 
 public abstract class ProxyActivity extends SupportActivity{
+    //  LatteDelegate 实际就是fragment
     public abstract LatteDelegate setRootDelegate();
 
     @Override
@@ -23,7 +24,9 @@ public abstract class ProxyActivity extends SupportActivity{
         initContainer(savedInstanceState);
     }
     private void initContainer(@Nullable Bundle savedInstanceState){
+        //FrameLayout
         final ContentFrameLayout container=new ContentFrameLayout(this);
+        //设置id
         container.setId(R.id.delegate_container);
         setContentView(container);
         if (savedInstanceState==null){

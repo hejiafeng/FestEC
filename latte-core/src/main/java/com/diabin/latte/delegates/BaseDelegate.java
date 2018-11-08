@@ -41,17 +41,17 @@ public abstract class BaseDelegate extends SwipeBackFragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView=null;
-        if (setLayout() instanceof Integer){
-            rootView=inflater.inflate((Integer) setLayout(),container,false);
-        }else if (setLayout() instanceof View){
-            rootView= (View) setLayout();
-        }else {
+        View rootView = null;
+        if (setLayout() instanceof Integer) {
+            rootView = inflater.inflate((Integer) setLayout(), container, false);
+        } else if (setLayout() instanceof View) {
+            rootView = (View) setLayout();
+        } else {
             throw new ClassCastException("setLayout() type must be int or View;");
         }
-        if (rootView!=null){
-            mUnbinder= ButterKnife.bind(this,rootView);
-            onBindView(savedInstanceState,rootView);
+        if (rootView != null) {
+            mUnbinder = ButterKnife.bind(this, rootView);
+            onBindView(savedInstanceState, rootView);
         }
         return rootView;
     }

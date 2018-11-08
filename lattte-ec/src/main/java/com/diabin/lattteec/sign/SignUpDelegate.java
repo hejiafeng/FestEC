@@ -1,5 +1,6 @@
 package com.diabin.lattteec.sign;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -29,6 +30,8 @@ public class SignUpDelegate extends LatteDelegate {
     @BindView(R2.id.edit_sign_up_re_password)
     TextInputEditText mRePassword = null;
 
+    private ISignListener mISignListener = null;
+
     @OnClick(R2.id.btn_sign_up)
     void onClickSingUp() {
         if (checkForm()) {
@@ -42,13 +45,21 @@ public class SignUpDelegate extends LatteDelegate {
                         @Override
                         public void onSuccess(String response) {
                             LatteLogger.json("USER_PROFILE", response);
-                            SignHandler.onSignUp(response);
+                            SignHandler.onSignUp(response,mISignListener);
 
                         }
                     })
                     .build()
                     .post();
             Toast.makeText(getContext(), "验证通过", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof ISignListener){
+            mISignListener = (ISignListener) activity;
         }
     }
 

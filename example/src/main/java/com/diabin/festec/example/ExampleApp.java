@@ -49,6 +49,7 @@ public class ExampleApp extends Application {
     }
     private void initStetho(){
 //        Steth
+        //查看数据库green插件
         Stetho.initialize(
                 Stetho.newInitializerBuilder(this)
                 .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))

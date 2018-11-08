@@ -1,12 +1,17 @@
 package com.diabin.lattteec.sign;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.Toast;
 
 import com.diabin.latte.delegates.LatteDelegate;
+import com.diabin.latte.net.RestClient;
+import com.diabin.latte.net.callback.ISuccess;
+import com.diabin.latte.util.log.LatteLogger;
 import com.diabin.lattteec.R;
 import com.diabin.lattteec.R2;
 
@@ -26,6 +31,15 @@ public class SignInDelegate extends LatteDelegate {
     @OnClick(R2.id.icon_sign_in_wechat)
     void onClickWeChat(){
 
+    }
+    private ISignListener mISignListener = null;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof ISignListener){
+            mISignListener = (ISignListener) activity;
+        }
     }
 
     @OnClick(R2.id.tv_link_sign_up)
@@ -53,6 +67,26 @@ public class SignInDelegate extends LatteDelegate {
         }
 
         return isPass;
+    }
+    @OnClick(R2.id.btn_sign_in)
+    void onClickSingUp() {
+        if (checkForm()) {
+            RestClient.builder()
+                    .url("sign_")
+                    .params("email", mEmail.getText().toString())
+                    .params("password", mPassword.getText().toString())
+                    .success(new ISuccess() {
+                        @Override
+                        public void onSuccess(String response) {
+                            LatteLogger.json("USER_PROFILE", response);
+                            SignHandler.onSignIn(response,mISignListener);
+
+                        }
+                    })
+                    .build()
+                    .post();
+            Toast.makeText(getContext(), "验证通过", Toast.LENGTH_SHORT).show();
+        }
     }
     @Override
     public Object setLayout() {

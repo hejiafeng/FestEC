@@ -3,11 +3,16 @@ package com.diabin.festec.example;
 import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.widget.Toast;
 
 import com.diabin.latte.activities.ProxyActivity;
 import com.diabin.latte.delegates.LatteDelegate;
+import com.diabin.latte.ui.launcher.ILauncherListener;
+import com.diabin.latte.ui.launcher.OnLauncherFinishTag;
 import com.diabin.lattteec.launcher.LancherDelegate;
 import com.diabin.lattteec.launcher.LauncherScrollDelegate;
+import com.diabin.lattteec.sign.ISignListener;
+import com.diabin.lattteec.sign.SignInDelegate;
 import com.diabin.lattteec.sign.SignUpDelegate;
 
 /**
@@ -17,7 +22,9 @@ import com.diabin.lattteec.sign.SignUpDelegate;
  * 2.LatteDelegate 作用是:BaseDelegate extends SwipeBackFragment 其实这里是fragment
  */
 
-public class ExampleActivity extends ProxyActivity {
+public class ExampleActivity extends ProxyActivity implements
+        ILauncherListener,
+        ISignListener{
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,4 +44,29 @@ public class ExampleActivity extends ProxyActivity {
 
     }
 
+    @Override
+    public void onSignInSuccess() {
+
+    }
+
+    @Override
+    public void onSignUpSuccess() {
+        Toast.makeText(this,"注冊成功",Toast.LENGTH_LONG).show();
+
+    }
+
+    @Override
+    public void onLauncherFinish(OnLauncherFinishTag tag) {
+        switch (tag){
+            case SIGNED:
+                startWithPop(new ExampleDelegate());
+                break;
+            case NOT_SINGED:
+                startWithPop(new SignInDelegate());
+                break;
+            default:
+                break;
+        }
+
+    }
 }
