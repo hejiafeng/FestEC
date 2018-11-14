@@ -9,5 +9,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 public @interface PayEntryGenerator {
     String packageName();
-    Class<?> payEntryTemplete();
+    Class<?> payEntryTemplate();
 }

@@ -23,10 +23,13 @@ import javax.lang.model.element.TypeElement;
 
 @SuppressWarnings("unused")
 @AutoService(Processor.class)
-public class LatteProcessor extends AbstractProcessor {
+final public class LatteProcessor extends AbstractProcessor {
     @Override
     public boolean process(Set<? extends TypeElement> set, RoundEnvironment roundEnvironment) {
 //        final Set<Class<?> extends Annotation> supportAnnotations
+        generateEntryCode(roundEnvironment);
+        generatePayEntryCode(roundEnvironment);
+        generateAppRegisterCode(roundEnvironment);
         return false;
     }
 
@@ -67,6 +70,22 @@ public class LatteProcessor extends AbstractProcessor {
     }
 
     private void generateEntryCode(RoundEnvironment env){
+        final EntryVisitor mEntryVisitor = new EntryVisitor(processingEnv.getFiler());
+        scan(env,EntryGenerator.class,mEntryVisitor);
 
     }
+
+    private void generatePayEntryCode(RoundEnvironment env){
+        final PayEntryVisitor mEntryVisitor = new PayEntryVisitor(processingEnv.getFiler());
+        scan(env,PayEntryGenerator.class,mEntryVisitor);
+
+    }
+
+    private void generateAppRegisterCode(RoundEnvironment env){
+        final AppRegisterVisitor mEntryVisitor = new AppRegisterVisitor(processingEnv.getFiler());
+        scan(env,AppRegisterGenerator.class,mEntryVisitor);
+
+    }
+
+
 }

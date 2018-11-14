@@ -22,6 +22,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':lattte-ec')
+    provided project(':latte-annotations')
     testCompile 'junit:junit:4.12'
     annotationProcessor project(':latte-compiler')
     compile 'com.facebook.stetho:stetho:1.5.0'
