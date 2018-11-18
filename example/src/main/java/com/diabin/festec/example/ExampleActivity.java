@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.widget.Toast;
 
 import com.diabin.latte.activities.ProxyActivity;
+import com.diabin.latte.app.Latte;
 import com.diabin.latte.delegates.LatteDelegate;
 import com.diabin.latte.ui.launcher.ILauncherListener;
 import com.diabin.latte.ui.launcher.OnLauncherFinishTag;
@@ -33,6 +34,7 @@ public class ExampleActivity extends ProxyActivity implements
         if (actionBar != null) {
             actionBar.hide();
         }
+        Latte.getConfigurator().withActivity(this);
     }
 
     @Override

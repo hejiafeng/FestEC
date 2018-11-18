@@ -29,19 +29,19 @@ public final class Latte {
         return (Application) getConfigurations().get(ConfigType.APPLICATION_CONTEXT.name());
 
     }
-    public static Application getApplicationContext(){
-        return (Application) getConfigurations().get(ConfigType.APPLICATION_CONTEXT.name());
+//    public static Application getApplicationContext(){
+//        return (Application) getConfigurations().get(ConfigType.APPLICATION_CONTEXT.name());
+//    }
+
+    public static Context getApplicationContext() {
+        return getConfiguration(ConfigKeys.APPLICATION_CONTEXT);
     }
 
-//    public static Context getApplicationContext() {
-//        return getConfiguration(ConfigKeys.APPLICATION_CONTEXT);
-//    }
-//
-//    public static <T> T getConfiguration(Object key) {
-//        return getConfigurator().getConfiguration(key);
-//    }
-//
-//    public static Configurator getConfigurator() {
-//        return Configurator.getInstance();
-//    }
+    public static <T> T getConfiguration(Object key) {
+        return getConfigurator().getConfiguration(key);
+    }
+
+    public static Configurator getConfigurator() {
+        return Configurator.getInstance();
+    }
 }
